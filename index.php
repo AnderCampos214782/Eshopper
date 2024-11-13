@@ -1,12 +1,19 @@
 <!DOCTYPE html>
 <?php
-  $BDProductos = array( 
-    array(1, 2, 3, 4, 5, 6, 7),                                       //El ID
-    array("Blusa", "Lentes", "Playera", "Pantalón", "Vestido", "Gabardina", "Camisa"), //La Descripción
-    array(100, 350, 200, 420, 250, 550, 620),                             //El Precio
-    array("Dama", "Caballero", "Caballero", "Dama", "Dama", "Caballero", "Caballero"));   //Categoría
-  $iProductos = 7; //Indica el No. de Productos
-
+//Estas líneas de código asignan los valores de los nuevos productos creados con agregarproductos a las variables que usamos en el eshopper
+  $BDProductos = array(0,"CERO",0,"");
+ $i=0; $iProductos=1; 
+ $filas=file('archivo.txt'); 
+ //Este foreach separa los datos escritos en el archivo.txt para asignar los valores a variables que se puedan registrar en el eshopper
+ foreach($filas as $value){
+    list($id, $producto, $precio, $categoria) = explode(",", $value);
+    array_push($BDProductos, $id);
+    array_push($BDProductos, $producto);
+    array_push($BDProductos, $precio);
+    array_push($BDProductos, $categoria);
+    $iProductos++;
+  }
+//Estas líneas de código crean un array para mostrar la cantidad de productos disponibles, las existencias, montos y las ventas
   $BDAlmacen = array( 
     array(1, 2, 3, 4, 5, 6, 7), //El IDProducto
     array(0,10, 5, 15, 3, 2, 6)); //Las Existencias
@@ -43,7 +50,7 @@
     <link rel="apple-touch-icon-precomposed" sizes="72x72" href="images/ico/apple-touch-icon-72-precomposed.png">
     <link rel="apple-touch-icon-precomposed" href="images/ico/apple-touch-icon-57-precomposed.png">
 </head><!--/head-->
-
+<!--Estas líneas muestran información de contacto en la parte superior del index.php -->
 <body>
 	<header id="header"><!--header-->
 		<div class="header_top"><!--header_top-->
@@ -52,7 +59,7 @@
 					<div class="col-sm-6">
 						<div class="contactinfo">
 							<ul class="nav nav-pills">
-								<li><a href="#"><i class="fa fa-phone"></i> +52 618 120 0776</a></li>
+								<li><a href="#"><i class="fa fa-phone"></i> +52 618 182 1058</a></li>
 								<li><a href="#"><i class="fa fa-envelope"></i> atencionclientes@gmail.com</a></li>
 							</ul>
 						</div>
@@ -63,7 +70,7 @@
 				</div>
 			</div>
 		</div><!--/header_top-->
-		
+	
 		<div class="header-middle"><!--header-middle-->
 			<div class="container">
 				<div class="row">
@@ -72,9 +79,11 @@
 							<a href="index.php"><img src="images/home/logo.png" alt="" /></a>
 						</div>						
 					</div>
+<!--Estas líneas de código crean botones que dirigen a las direntes páginas del eshopper-->
 					<div class="col-sm-8">
 						<div class="shop-menu pull-right">
 							<ul class="nav navbar-nav">
+								<li><a href="agregarproductos.php" target="_blank"><i class="fa fa-plus"></i>Agregar</a></li>
 								<li><a href="checkout.php"><i class="fa fa-crosshairs"></i> Pagar</a></li>
 								<li><a href="cart.php"><i class="fa fa-shopping-cart"></i> Carrito</a></li>
 								<li><a href="login.php"><i class="fa fa-lock"></i> Login</a></li>
@@ -97,7 +106,8 @@
 								<span class="icon-bar"></span>
 							</button>
 						</div>
-						<div class="mainmenu pull-left">
+<!--Estas líneas de código muestran las acciones que puedes realizar en el index-->
+							<div class="mainmenu pull-left">
 							<ul class="nav navbar-nav collapse navbar-collapse">
 								<li><a href="index.php" class="active">Inicio</a></li>
 								<li class="dropdown"><a href="#">Comprar<i class="fa fa-angle-down"></i></a>
@@ -129,7 +139,7 @@
 						<ol class="carousel-indicators">
 							<li data-target="#slider-carousel" data-slide-to="0" class="active"></li>	
 						</ol>
-						
+<!--Estas líneas de código hacen que funcione el slider de la página index-->
 						<div class="carousel-inner">
 							<div class="item active">
 								<div class="col-sm-6">
@@ -157,7 +167,8 @@
 			</div>
 		</div>
 	</section><!--/slider-->
-	
+
+<!--Estas líneas de código crean las categorías de los productos del eshopper-->
 	<section>
 		<div class="container">
 			<div class="row">
@@ -185,36 +196,38 @@
 					<div class="features_items"><!--features_items-->
 						<h2 class="title text-center">Catálogo de Productos</h2>
 						<?php
-   							for ($i=0; $i< $iProductos;$i++){      
+						$n=4;
+   							for ($i=1; $i< $iProductos;$i++){      
 						?>
 						<div class="col-sm-4">
 							<div class="product-image-wrapper">
 								<div class="single-products">
 										<div class="productinfo text-center">
+<!--Este bloque de código asigna los números de las imágenes con los productos guardados, las muestra y las lee según el número que tenga guardado siendo un tipo de archivo .jpg, también asigna el tamaño de la imagen-->
 											<?php
-											$img = $BDProductos[0][$i];
+											$img = $BDProductos[$n];
 											?>
-											<img src="images/home/<?php echo $img;?>
-											.jpg" alt="" width="210" height="180"/>
-											<h2>
-											<?php echo "$ " . $BDProductos[2][$i];?>
-											<h2>
-											<p><?php echo "$ " . $BDProductos[1][$i];?>
-											</p>
+											<img src="images/home/<?php echo $img; ?>.jpg" width="210" height="180" alt="" />
+											<h2><?php echo $BDProductos[$n+2];?></h2>
+											<p><?php echo $BDProductos[$n+1];?></p>
 
 											<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Agregar al Carrito</a>
 										</div>
+<!--Estas líneas de código agregan el conteo de productos al presionar el botón de agregar al carrito-->
 										<div class="product-overlay">
 											<div class="overlay-content">
-												<h2><?php echo '$ ' . $BDProductos[2][$i];?></h2>
-												<p><?php echo  $BDProductos[1][$i];?></p>
+												<h2><?php echo $BDProductos[$n+1];?></h2>
+												<p><?php echo $BDProductos[$n+2];?></p>
 												<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Agregar al Carrito</a>
 											</div>
 										</div>
 								</div>								
 							</div>
 						</div>
-						<?php }  ?>
+						<?php
+							$n+=4;
+							}
+						?>
 					</div><!--features_items-->
 					
 					
@@ -225,11 +238,12 @@
 						<div id="recommended-item-carousel" class="carousel slide" data-ride="carousel">
 							<div class="carousel-inner">
 								<div class="item active">	
-<div class="col-sm-4">
+<!--Se agregan productos recomendados-->
+			<div class="col-sm-4">
 										<div class="product-image-wrapper">
 											<div class="single-products">
 												<div class="productinfo text-center">
-													<img src="images/home/lentes.jpg" alt="" />
+													<img src="images/home/lentes.jpg" width="210" height="180" alt="" />
 													<h2>$130</h2>
 													<p>Lentes de Sol</p>
 													<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Agregar al Carrito</a>
@@ -238,26 +252,26 @@
 											</div>
 										</div>
 									</div>
-
-<div class="col-sm-4">
+<!--Se agregan productos recomendados-->
+			<div class="col-sm-4">
 										<div class="product-image-wrapper">
 											<div class="single-products">
 												<div class="productinfo text-center">
-													<img src="images/home/sombrero.jpg" alt="" />
-													<h2>$230</h2>
-													<p>Sombrero Fedora</p>
+													<img src="images/home/gorrawolf.jpg" width="210" height="180" alt="" />
+													<h2>$220</h2>
+													<p>Gorra WOLF</p>
 													<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Agregar al Carrito</a>
 												</div>
 												
 											</div>
 										</div>
 									</div>
-
-<div class="col-sm-4">
+<!--Se agregan productos recomendados-->
+			<div class="col-sm-4">
 										<div class="product-image-wrapper">
 											<div class="single-products">
 												<div class="productinfo text-center">
-													<img src="images/home/bufanda.jpg" alt="" />
+													<img src="images/home/bufanda.jpg" width="210" height="180" alt="" />
 													<h2>$90</h2>
 													<p>Bufanda</p>
 													<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Agregar al Carrito</a>
@@ -266,13 +280,13 @@
 											</div>
 										</div>
 									</div>
-
-<div class="col-sm-4">
+<!--Se agregan productos recomendados-->
+			<div class="col-sm-4">
 										<div class="product-image-wrapper">
 											<div class="single-products">
 												<div class="productinfo text-center">
-													<img src="images/home/hoodie.jpg" alt="" />
-													<h2>$430</h2>
+													<img src="images/home/hoodie.jpg" width="210" height="180" alt="" />
+													<h2>$340</h2>
 													<p>Sudadera</p>
 													<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Agregar al Carrito</a>
 												</div>
@@ -282,7 +296,7 @@
 									</div>
 
 								</div>
-								
+<!--Estas líneas de código generan un slider para los produtos recomendados-->
 							</div>
 							 <a class="left recommended-item-control" href="#recommended-item-carousel" data-slide="prev">
 								<i class="fa fa-angle-left"></i>
@@ -297,7 +311,7 @@
 			</div>
 		</div>
 	</section>
-	
+<!--Las siguientes líneas de código imprimen la información de la página en la parte inferior de esta-->
 	<footer id="footer"><!--Footer-->
 		<div class="footer-top">
 			<div class="container">
@@ -322,7 +336,7 @@
 		<div class="footer-widget">
 			
 		</div>
-		
+<!--Muestra el pie de página con la licencia de uso-->
 		<div class="footer-bottom">
 			<div class="container">
 				<div class="row">

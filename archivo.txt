@@ -1,0 +1,12 @@
+1, Blusa,$100,Damas
+2, Lentes,$380,Caballeros
+3, Playera Azul,$250,Caballeros
+4, Blusa Ligera,$100,Damas
+5, Vestido,$450,Damas
+6, Chaqueta,$680,Caballeros
+7, Camisa Azul,$240,Caballeros
+8, Sudadera,$300,Caballeros
+9, Sudadera Igor,$760,Caballeros
+10, Sudadera Tyler,$820,Caballeros
+11, Sudadera MF DOOM,$430,Caballeros
+12, Camiseta Lobo Galaxy,$50,Caballeros
