@@ -206,19 +206,21 @@
 <!--Este bloque de código asigna los números de las imágenes con los productos guardados, las muestra y las lee según el número que tenga guardado siendo un tipo de archivo .jpg, también asigna el tamaño de la imagen-->
 											<?php
 											$img = $BDProductos[$n];
+											$productoB= $BDProductos[$n+1];
+											$precioB= $BDProductos[$n+2];
 											?>
 											<img src="images/home/<?php echo $img; ?>.jpg" width="210" height="180" alt="" />
-											<h2><?php echo $BDProductos[$n+2];?></h2>
-											<p><?php echo $BDProductos[$n+1];?></p>
+											<h2><?php echo $productoB;?></h2>
+											<p><?php echo $precioB; ?></p>
 
-											<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Agregar al Carrito</a>
+											<a href="cart.php?producto=<?php echo $productoB;?>&precio=<?php echo $precioB;?>" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Agregar al Carrito</a>
 										</div>
 <!--Estas líneas de código agregan el conteo de productos al presionar el botón de agregar al carrito-->
 										<div class="product-overlay">
 											<div class="overlay-content">
-												<h2><?php echo $BDProductos[$n+1];?></h2>
-												<p><?php echo $BDProductos[$n+2];?></p>
-												<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Agregar al Carrito</a>
+												<h2><?php echo $precioB;?></h2>
+												<p><?php echo $productoB;?></p>
+												<a href="cart.php?producto=<?php echo $productoB;?>&precio=<?php echo $precioB;?>" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Agregar al Carrito</a>
 											</div>
 										</div>
 								</div>								
